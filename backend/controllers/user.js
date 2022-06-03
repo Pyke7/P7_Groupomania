@@ -50,17 +50,25 @@ exports.login = (req, res) => {
                 if (!valid) {
                     return res.status(401).json({ message: 'Mot de passe incorrect'})
                 }
+                let token = jwt.sign(
+                    { userId: user.id},
+                    process.env.TOKEN_KEY,
+                    { expiresIn: '24h'}
+                );
                 res.status(201).json({
                     userId: user.id,
-                    token: jwt.sign(
-                        { userId: user.id},
-                        process.env.TOKEN_KEY,
-                        { expiresIn: '24h'}
-                    )
+                    token
                 })
+
+                localStorage.setItem('token', JSON.stringify(token));
             }) 
             .catch(err => res.status(401).json({ message: 'Mot de passe incorrect'}))
     })
+};
+
+exports.logout = (req, res) => {
+    localStorage.clear();
+    res.redirect('/');
 };
 
 exports.deleteAccount = (req, res) => {
