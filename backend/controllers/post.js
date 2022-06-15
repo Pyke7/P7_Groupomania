@@ -25,7 +25,6 @@ exports.getAllPosts = (req, res) => {
         if (err || !result[0]) {
             return res.status(404).json({ message: "There is no post"});
         }
-        console.log(result)
         return res.status(200).json(result);
     })
 };
