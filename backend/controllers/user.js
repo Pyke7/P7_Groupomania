@@ -42,7 +42,7 @@ exports.login = (req, res) => { //connexion sécurisée au réseau social avec t
         bcrypt.compare(password, user.password) 
             .then(valid => {
                 if (!valid) {
-                    return res.status(401).json({ message: 'Mot de passe incorrect'})
+                    return res.status(401).json({ message: 'Password is invalid'})
                 }
                 let token = jwt.sign(
                     { userId: user.id},
@@ -54,7 +54,7 @@ exports.login = (req, res) => { //connexion sécurisée au réseau social avec t
                     token
                 })
             }) 
-            .catch(err => res.status(401).json({ message: 'Mot de passe incorrect'}))
+            .catch(err => res.status(401).json({ message: 'Password is invalid'}))
     })
 };
 

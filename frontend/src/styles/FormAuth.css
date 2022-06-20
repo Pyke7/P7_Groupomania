@@ -1,0 +1,53 @@
+.formAuth {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: -20px;
+}
+
+.inputLogo-Container {
+    display: flex; 
+    justify-content: center;
+    border-bottom: 1px solid #8AA29E;
+    margin-bottom: 20px;
+}
+
+.inputLogo-Container input{
+    font-size: 18px;
+    border-style: none;
+    margin-bottom: 5px;
+    padding-left: 20px;
+    color: #8AA29E;
+    outline: none;
+}
+
+.inputLogo-Container input::placeholder {
+    color: rgba(138, 162, 158, 0.5);
+}
+
+.inputLogo-Container svg {
+    width: 25px;
+    height: 25px;
+    color: #8AA29E;
+}
+
+.lock {
+    margin-bottom: 6px;
+}
+
+.btnAuth {
+    font-size: 18px;
+    font-weight: 100;
+    color: #FFFFFF;
+    background-color: #FD2D01;
+    border-style: none;
+    padding: 10px 25px;
+    border-radius: 3px;
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+.userIcon {
+    margin-bottom: 6px;
+}
