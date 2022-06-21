@@ -1,0 +1,10 @@
+.postedit {
+    font-size: 20px;
+    font-family: 'Open Sans', sans-serif;
+    color: #4E5166;
+    background-color: #FFFFFF;
+    padding: 20px 100px 20px 20px;
+    margin: 60px 0 40px 0;
+    border-radius: 10px;
+    cursor: pointer;
+}

@@ -8,10 +8,9 @@ function FormSignup() {
     const [error, setError] = useState();
     const {register, handleSubmit, errors} = useForm();
     const onSubmit = (data) => {
-        axios.post('http://localhost:3000/api/user/login', data)
+        axios.post('http://localhost:3000/api/user/signup', data)
             .then((resultat) => {  
-                localStorage.token=resultat.data.token;
-                document.location.href ="/";
+                document.location.href ="/login";
             })
             .catch((error) => {
                 console.log(error);
@@ -24,15 +23,15 @@ function FormSignup() {
         <form onSubmit={handleSubmit(onSubmit)} className='formAuth'>
             <div className='inputLogo-Container'>
                 <FaUser className='userIcon'/>
-                <input {...register("firstName", {required: true})} type="text" name="firstName" placeholder="first name"/>
+                <input {...register("prenom", {required: true})} type="text" name="prenom" placeholder="first name"/>
             </div>
             <div className='inputLogo-Container'>
                 <FaUser className='userIcon'/>
-                <input {...register("lastName", {required: true})} type="text" name="lastName" placeholder="last name"></input> 
+                <input {...register("nom", {required: true})} type="text" name="nom" placeholder="last name"></input> 
             </div>
             <div className='inputLogo-Container'>
                 <FaEnvelope />
-                <input { ...register("email", {required: 'User not found'})} type="email" name="email" placeholder="email" />
+                <input { ...register("email", {required: true})} type="email" name="email" placeholder="email" />
             </div>
             {/* <p>{error}</p> */}
             <div className='inputLogo-Container'>

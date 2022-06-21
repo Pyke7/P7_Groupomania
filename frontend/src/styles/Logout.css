@@ -1,0 +1,40 @@
+.popup-content {
+    font-family: 'Open Sans', sans-serif;
+    color: black;
+    background: rgb(255, 255, 255);
+    padding: 5px 10px 15px 10px;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 3px;
+  }
+
+.popup-overlay {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.userIcon {
+    cursor: pointer;
+}
+
+.email {
+    font-size: 16px;
+    color: #4E5166;
+}
+
+.iconContainer {
+    width: 30px;
+    margin-right: 100px;
+}
+
+.btn-logout {
+    display: inline;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffd7d7d0;
+    cursor: pointer;
+    transition: all 200ms ease-in;
+}
+
+.btn-logout:hover {
+    color: #FD2D01;
+    border-bottom: solid 2px #FD2D01;
+}

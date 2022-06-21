@@ -1,0 +1,9 @@
+.postform {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+p::after {
+    border: solid 2px black;
+}
