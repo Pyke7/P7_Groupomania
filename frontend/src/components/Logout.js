@@ -30,7 +30,7 @@ function PopupLogout() {
       position="bottom center"
       closeOnDocumentClick
     >
-      <div className="">
+      <div>
         <p className="email">{email}</p>
         <p onClick={handleClick} className='btn-logout'>Logout</p>
       </div>

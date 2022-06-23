@@ -2,15 +2,13 @@ const connection = require('../database/db');
 const fs = require('fs');
 
 exports.createPost = (req, res) => {
-    console.log(JSON.parse(req.body.post))
     // const postObject = JSON.parse(req.body.post);
-    // console.log(postObject);
     const message = req.body.message;
-    const imageUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+    // const imageUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
     const timestamps = Date.now();
     const userId = req.auth.userId;
     
-    connection.query('INSERT INTO post (message, imageUrl, timestamps, userId) values (?, ?, ?, ?)', [message, imageUrl, timestamps, userId], 
+    connection.query('INSERT INTO post (message, timestamps, user_id) values (?, ?, ?)', [message, timestamps, userId], 
     function (err, result) {
         if (err) {
             return res.status(400).json({ err });
@@ -20,7 +18,7 @@ exports.createPost = (req, res) => {
 };
 
 exports.getAllPosts = (req, res) => {
-    connection.query('SELECT * FROM post ORDER BY timestamps DESC', //permet de récupérer les posts créés dans un ordre antéchronologique
+    connection.query('SELECT post.id, post.message, post.imageUrl, post.timestamps, post.user_id, user.prenom, user.nom FROM post JOIN user ON post.user_id = user.id ORDER BY timestamps DESC', //permet de récupérer les posts créés dans un ordre antéchronologique
     function (err, result) {
         if (err || !result[0]) {
             return res.status(404).json({ message: "There is no post"});

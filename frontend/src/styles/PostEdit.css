@@ -5,6 +5,11 @@
     background-color: #FFFFFF;
     padding: 20px 100px 20px 20px;
     margin: 60px 0 40px 0;
-    border-radius: 10px;
+    border-radius: 5px;
     cursor: pointer;
+}
+
+.popup-post-content {
+    padding: 0; 
+    width: 35%;
 }

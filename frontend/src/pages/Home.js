@@ -1,6 +1,7 @@
 import Header from "../components/Header";
-import Footer from "../components/Footer";
 import PostEdit from "../components/PostEdit";
+import Fildactu from '../components/Fildactu';
+import Footer from "../components/Footer";
 import "../styles/Home.css";
 
 function Home() {
@@ -15,6 +16,7 @@ function Home() {
         <Header />
         <main>
         <PostEdit />
+        <Fildactu />
         </main>
         <Footer />
       </div>

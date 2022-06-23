@@ -2,8 +2,57 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-bottom: 25px;
+    color: #4E5166;
 }
 
-p::after {
-    border: solid 2px black;
+.post-title {
+    font-family: 'Arimo', 'Open Sans', sans-serif;
+    font-size: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+.post-title::after {
+    content: "";
+    display: block;
+    margin-top: 10px;
+    width: 100%;
+    height: 1px;
+    background-color: #4E5166;
+    color: black;
+}
+
+.contentOfPost {
+    width: 80%;
+    height: 100px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    color: #4E5166;
+    border: 2px solid #8AA29E;
+    border-radius: 5px;
+    padding: 7px;
+    resize: none;
+}
+
+.contentOfPost:focus-visible {
+    outline: none;
+}
+
+.btn-post {
+    font-size: 18px;
+    font-weight: 100;
+    color: #FFFFFF;
+    background-color: #FD2D01;
+    border-style: none;
+    padding: 10px 25px;
+    border-radius: 3px;
+    margin-top: 15px;
+    cursor: pointer;
+    transform: scale(1);
+    transition: transform 200ms ease-in;
+}
+
+.btn-post:hover {
+    transform: scale(1.10);
 }
