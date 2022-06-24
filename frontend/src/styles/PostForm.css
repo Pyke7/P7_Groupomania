@@ -26,6 +26,7 @@
 .contentOfPost {
     width: 80%;
     height: 100px;
+    margin-bottom: 10px;
     font-family: 'Open Sans', sans-serif;
     font-size: 16px;
     color: #4E5166;
@@ -38,6 +39,34 @@
 .contentOfPost:focus-visible {
     outline: none;
 }
+
+.container-image-input {
+    width: 80%;
+    border: 2px solid #8AA29E;
+    border-radius: 5px;
+    padding: 7px;
+}
+
+.label-string {
+    font-size: 15px;
+    margin: 0;
+}
+
+.insert-image {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
+.fileIcon {
+    font-size: 20px;
+}
+
+/* .imageOfPost {
+    
+} */
 
 .btn-post {
     font-size: 18px;

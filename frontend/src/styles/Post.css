@@ -1,0 +1,47 @@
+.post {
+    background-color: #FFFFFF;
+    color: #4E5166;
+    border-radius: 5px;
+    position: relative;
+    margin-bottom: 20px;
+    padding: 20px 0;
+}
+
+.post-infos {
+    padding-left: 20px;
+    line-height: 5px;
+}
+
+.post-infos-name {
+    font-size: 18px;
+    margin: 0;
+}
+
+.post-infos-date {
+    font-size: 14px;
+}
+
+.post-message {
+    padding: 0 20px;
+}
+
+.pouceBleu {
+    font-size: 20px;
+    padding-left: 20px;
+    cursor: pointer;
+}
+
+.threeDots {
+    width: 1.2rem;
+    height: 1.2rem;
+    padding: 7px;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    cursor: pointer;
+}
+
+.threeDots:hover {
+    background-color: rgba(138, 162, 158, 0.5);
+    border-radius: 20px;
+}

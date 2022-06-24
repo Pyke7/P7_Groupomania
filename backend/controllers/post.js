@@ -2,13 +2,13 @@ const connection = require('../database/db');
 const fs = require('fs');
 
 exports.createPost = (req, res) => {
-    // const postObject = JSON.parse(req.body.post);
+    console.log(req.body);
     const message = req.body.message;
-    // const imageUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+    const imageUrl = `${req.protocol}://${req.get('host')}/images/${req.body.imageUrl}`;
     const timestamps = Date.now();
     const userId = req.auth.userId;
     
-    connection.query('INSERT INTO post (message, timestamps, user_id) values (?, ?, ?)', [message, timestamps, userId], 
+    connection.query('INSERT INTO post (message, imageUrl, timestamps, user_id) values (?, ?, ?, ?)', [message, imageUrl, timestamps, userId], 
     function (err, result) {
         if (err) {
             return res.status(400).json({ err });
