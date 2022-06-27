@@ -5,8 +5,8 @@ import '../styles/FormAuth.css';
 import { FaEnvelope, FaLock } from 'react-icons/fa';
 
 function FormLogin() {
-    const [error, setError] = useState();
-    const {register, handleSubmit, errors} = useForm();
+    // const [error, setError] = useState();
+    const {register, handleSubmit, formState: {errors} } = useForm();
     const onSubmit = (data) => {
         axios.post('http://localhost:3000/api/user/login', data)
             .then((resultat) => {  
@@ -15,8 +15,8 @@ function FormLogin() {
             })
             .catch((error) => {
                 console.log(error);
-                const errorMsg = error.response.data.message;
-                setError(errorMsg);
+                // const errorMsg = error.response.data.message;
+                // setError(errorMsg);
             })
     }
 
@@ -24,13 +24,14 @@ function FormLogin() {
         <form onSubmit={handleSubmit(onSubmit)} className='formAuth'>
             <div className='inputLogo-Container'>
                 <FaEnvelope />
-                <input { ...register("email", {required: 'User not found'})} type="email" name="email" placeholder="email" />
+                <input { ...register("email", {required: true})} type="email" name="email" placeholder="email" />
             </div>
-            {/* <p>{error}</p> */}
+            {errors.email && <span className='errorsForm'>email incorrect</span>}
             <div className='inputLogo-Container'>
                 <FaLock className='lock'/>
                 <input {...register("password", {required: true})} type="password" name="password" placeholder="password"></input> 
             </div>
+            {errors.password && <span className='errorsForm'>password incorrect</span>}
             <input type="submit" value="SIGN IN" className='btnAuth'/>
         </form>
     );

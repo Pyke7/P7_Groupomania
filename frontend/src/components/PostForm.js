@@ -6,28 +6,24 @@ import { useForm } from "react-hook-form";
 function PostForm() {
   const { register, handleSubmit, errors } = useForm();
   const onSubmit = (data) => {
-    console.log(data.file[0])
+    console.log(data)
+    if (data.message === "" && !data.file[0]) {
+      return
+    }
+
     let bodyFormData = new FormData();
     bodyFormData.append("message", data.message);
-    bodyFormData.append("imageUrl", data.file[0]);
-    console.log(bodyFormData);
+    bodyFormData.append("image", data.file[0]);
 
     axios.post('http://localhost:3000/api/post', bodyFormData)
       .then((resultat) => {
         console.log(resultat.data.message);
+        document.location.href="/";
       })
       .catch((error) => {
         console.log(error);
       });
   };
-
-//   function handleClick() {
-//     const message = document.getElementById("message");
-//     if (!message || message === "") {
-//       return;
-//     }
-//     document.location.href ='/';
-//   }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="postform">
@@ -55,7 +51,6 @@ function PostForm() {
         />
       </div>
       <input
-        // onClick={handleClick}
         type="submit"
         value="POST"
         className="btn-post"

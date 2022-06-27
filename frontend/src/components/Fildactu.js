@@ -4,8 +4,7 @@ import { useEffect, useState } from "react";
 import Post from "../components/Post";
 
 function Fildactu() {
-  const [data, setData] = useState();
-  console.log(data);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     axios
@@ -20,7 +19,7 @@ function Fildactu() {
 
   return (
     <div className="fildactu">
-        {data?.map((post) => (
+        {data.map((post) => (
           <Post key={post.id} post={post} />
         ))}
     </div>

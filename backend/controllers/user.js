@@ -29,7 +29,7 @@ exports.login = (req, res) => { //connexion sécurisée au réseau social avec t
     const {email, password} = req.body;
 
     if (!email || !password) {
-        return res.status(400).json({ message: 'Veuillez remplir tous les champs' });
+        return res.status(400).json({ message: 'Please fill in all fields !' });
     }
 
     connection.query('SELECT * FROM user WHERE email = ?', [email], 
@@ -58,16 +58,16 @@ exports.login = (req, res) => { //connexion sécurisée au réseau social avec t
     })
 };
 
-exports.deleteAccount = (req, res) => { //supprime son propre compte
-    const id = req.auth.userId;
-    connection.query('DELETE FROM user WHERE id = ?', [id],
-    function(err, result) {
-        if(err || !result.affectedRows) {
-            return res.status(400).json({ err : "User not found" });
-        } 
-        res.status(200).json({ message: "Account deleted !"})
-    });
-};
+// exports.deleteAccount = (req, res) => { //supprime son propre compte
+//     const id = req.auth.userId;
+//     connection.query('DELETE FROM user WHERE id = ?', [id],
+//     function(err, result) {
+//         if(err || !result.affectedRows) {
+//             return res.status(400).json({ err : "User not found" });
+//         } 
+//         res.status(200).json({ message: "Account deleted !"})
+//     });
+// };
 
 exports.getUser = (req, res) => { //récupère les informations de son propre compte
     connection.query('SELECT * FROM user WHERE id=?', req.auth.userId,

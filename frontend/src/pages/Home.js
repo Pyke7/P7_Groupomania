@@ -1,6 +1,6 @@
 import Header from "../components/Header";
 import PostEdit from "../components/PostEdit";
-import Fildactu from '../components/Fildactu';
+import Fildactu from "../components/Fildactu";
 import Footer from "../components/Footer";
 import "../styles/Home.css";
 
@@ -11,15 +11,13 @@ function Home() {
   }
 
   return (
-    <div className="Home-container">
-      <div className="home">
-        <Header />
-        <main>
+    <div className="home">
+      <Header />
+      <main>
         <PostEdit />
         <Fildactu />
-        </main>
-        <Footer />
-      </div>
+      </main>
+      <Footer />
     </div>
   );
 }
