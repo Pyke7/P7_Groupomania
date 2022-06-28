@@ -41,7 +41,55 @@ exports.getAllPosts = (req, res) => {
   );
 };
 
-exports.updatePost = (req, res) => {};
+exports.updatePost = (req, res) => {
+  const postId = req.params.id;
+  connection.query(
+    "SELECT * FROM post WHERE id= ?",
+    [postId],
+    function (err, result) {
+      if (err) {
+        return res.status(404).json({ message: "The post was not found" });
+      }
+
+      if (result[0].user_id !== req.auth.userId) {
+        return res.status(401).json({ message: "Unauthorized Request !" });
+      }
+
+      if (req.file) {
+        const imageUrl = `${req.protocol}://${req.get("host")}/images/${
+          req.file.filename
+        }`;
+        const message = req.body.message;
+
+        const filename = result[0].imageUrl.split('/images/')[1];
+        fs.unlink(`images/${filename}`, () => {
+          connection.query(
+            "UPDATE post SET message = ?, imageUrl = ? WHERE id = ? ",
+            [message, imageUrl, postId],
+            function (err, result) {
+              if (err || !result.affectedRows) {
+                return res.status(400).json({ err: "Post not found" });
+              }
+              return res.status(200).json({ message: "Modified post" });
+            }
+          );
+        });
+      } else {
+        const message = req.body.message;
+        connection.query(
+          "UPDATE post SET message = ? WHERE id = ? ",
+          [message, postId],
+          function (err, result) {
+            if (err || !result.affectedRows) {
+              return res.status(400).json({ err: "Post not found" });
+            }
+            return res.status(200).json({ message: "Modified post" });
+          }
+        );
+      }
+    }
+  );
+};
 
 exports.deletePost = (req, res) => {
   //supprime un post de la BDD en fonction de son id

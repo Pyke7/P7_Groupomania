@@ -1,45 +1,169 @@
 import { FaThumbsUp } from "react-icons/fa";
-import '../styles/Post.css';
-import PostOptions from "../components/PostOptions";
+import "../styles/Post.css";
 import axios from "axios";
 import { useState } from "react";
+import Popup from "reactjs-popup";
+import { BsThreeDots } from "react-icons/bs";
+import { BsFileImageFill } from "react-icons/bs";
+import { useForm } from "react-hook-form";
 
 function Post({ post }) {
-  const date = new Date(post.timestamps)
+  console.log(post.message);
+  const date = new Date(post.timestamps);
   const newDate = date.toDateString();
 
   const [userId, setUserId] = useState();
   const [isAdmin, setIsAdmin] = useState();
 
+  const [isUpdated, setIsUpdated] = useState(false);
+
+  const { register, handleSubmit, errors } = useForm();
+  const onSubmit = (data) => {
+    console.log(data.message);
+    if (data.message === "" && !data.file[0]) {
+      return;
+    }
+
+    if (!data.file.length) {
+      if (data.message === post.message) {
+        return;
+      }
+      const message = data.message;
+      const dataForAxios = { message };
+
+      axios
+        .put(`http://localhost:3000/api/post/${post.id}`, dataForAxios)
+        .then((res) => {
+          console.log("requete réussie");
+          document.location.href = "/";
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+
+    if (data.file) {
+      let bodyFormData = new FormData();
+      bodyFormData.append("message", data.message);
+      bodyFormData.append("image", data.file[0]);
+
+      axios
+        .put(`http://localhost:3000/api/post/${post.id}`, bodyFormData)
+        .then((res) => {
+          console.log("requete réussie");
+          document.location.href = "/";
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
   function getUser() {
-    axios.get('http://localhost:3000/api/user')
-      .then (res => {
-        setUserId(res.data.id)
-        setIsAdmin(res.data.isAdmin)
+    axios
+      .get("http://localhost:3000/api/user")
+      .then((res) => {
+        setUserId(res.data.id);
+        setIsAdmin(res.data.isAdmin);
       })
-      .catch (err => {
-        console.log(err)
-      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   getUser();
 
+  function deletePost() {
+    const deleteOption = document.getElementsByClassName("delete");
+    const postId = deleteOption[0].getAttribute("id");
+    axios
+      .delete(`http://localhost:3000/api/post/${postId}`)
+      .then((res) => {
+        console.log(res.data.message);
+        document.location.href = "/";
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   return (
     <div className="post" id={post.id}>
       <div className="post-infos">
-        { post.user_id === userId || isAdmin ? <PostOptions post={post}/> : null}
+        {post.user_id === userId || isAdmin ? (
+          <Popup
+            trigger={
+              <div className="dotContainer">
+                {" "}
+                <BsThreeDots className="threeDots" />
+              </div>
+            }
+            modal
+            className="popup-options"
+          >
+            <div>
+              <p className="modify" onClick={() => setIsUpdated(!isUpdated)}>
+                Modify
+              </p>
+              <p
+                className="delete"
+                id={post.id}
+                onClick={() => {
+                  if (window.confirm("Do you want to delete this post ?")) {
+                    deletePost();
+                  }
+                }}
+              >
+                Delete
+              </p>
+            </div>
+          </Popup>
+        ) : null}
         <p className="post-infos-name">
           {post.prenom} {post.nom}
         </p>
-        <p className="post-infos-date">{ newDate }</p>
+        <p className="post-infos-date">{newDate}</p>
       </div>
-      <p className="post-message">{post.message}</p>
-      <div>
-        { post.imageUrl ? <img src={post.imageUrl} alt="" /> : null}
-      </div>
-      <div>
-        <FaThumbsUp className="pouceBleu"/>
-      </div>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="containerForPostAndModify"
+      >
+        {isUpdated === false && <p className="post-message">{post.message}</p>}
+        {isUpdated && (
+          <textarea
+            {...register("message")}
+            id="message"
+            name="message"
+            className="contentOfPost"
+            maxLength="500"
+            defaultValue={post.message}
+          ></textarea>
+        )}
+
+        {isUpdated === false && (
+          <div>{post.imageUrl ? <img src={post.imageUrl} alt="" /> : null}</div>
+        )}
+        {isUpdated && (
+          <div className="container-input-bouton">
+            <div className="container-image-input">
+              <label htmlFor="file" className="insert-image">
+                <p className="label-string">Add an image to your post</p>
+                <BsFileImageFill className="fileIcon" />
+              </label>
+              <input
+                {...register("file")}
+                id="file"
+                name="file"
+                type="file"
+                className="imageOfPost"
+                accept="image/png, image/jpeg, image/jpg"
+              />
+            </div>
+            <input type="submit" value="SAVE CHANGES" className="btn-save" />
+          </div>
+        )}
+      </form>
+      {isUpdated === false ? <div><FaThumbsUp className="pouceBleu" /></div> : null}
     </div>
   );
 }
