@@ -45,7 +45,7 @@ exports.login = (req, res) => { //connexion sécurisée au réseau social avec t
                     return res.status(401).json({ message: 'Password is invalid'})
                 }
                 let token = jwt.sign(
-                    { userId: user.id},
+                    { userId: user.id, isAdmin: user.isAdmin},
                     process.env.TOKEN_KEY,
                     { expiresIn: '24h'}
                 );

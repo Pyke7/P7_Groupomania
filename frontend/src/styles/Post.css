@@ -9,6 +9,17 @@
     width: 590px;
 }
 
+@media screen and (max-width:650px) {
+    .post {
+        width: 300px;
+    }
+
+    .post img {
+        height: 250px;
+        width: 250px;
+    }
+}
+
 .post-infos {
     padding-left: 20px;
     line-height: 5px;
@@ -33,11 +44,6 @@
     margin-bottom: 10px;
 }
 
-.pouceBleu {
-    font-size: 20px;
-    padding-left: 20px;
-    cursor: pointer;
-}
 
 .threeDots {
     width: 1.2rem;
@@ -116,4 +122,17 @@
 
 .btn-save:hover {
     transform: scale(1.10);
+}
+
+.pouce {
+    font-size: 20px;
+    padding-left: 20px;
+    cursor: pointer;
+    transform: scale(1);
+    transition: all 200ms ease-in;
+}
+
+.pouce:active {
+    transform: scale(1.2);
+    color: #8AA29E;
 }

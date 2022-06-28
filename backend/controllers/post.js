@@ -2,7 +2,6 @@ const connection = require("../database/db");
 const fs = require("fs");
 
 exports.createPost = (req, res) => {
-  console.log(req);
   const message = req.body.message;
   let imageUrl = "";
 
@@ -102,13 +101,22 @@ exports.deletePost = (req, res) => {
         return res.status(404).json({ message: "The post was not found" });
       }
 
-      if (result[0].user_id !== req.auth.userId) {
-        return res.status(401).json({ message: "Unauthorized Request !" });
-      }
-
-      if (result[0].imageUrl) {
-        const filename = result[0].imageUrl.split("/images/")[1];
-        fs.unlink(`images/${filename}`, () => {
+      if (req.auth.admin || result[0].user_id === req.auth.userId) {
+        if (result[0].imageUrl) {
+          const filename = result[0].imageUrl.split("/images/")[1];
+          fs.unlink(`images/${filename}`, () => {
+            connection.query(
+              "DELETE FROM post WHERE id= ?",
+              [postId],
+              function (err, result) {
+                if (err || !result.affectedRows) {
+                  return res.status(400).json({ err: "Post not found" });
+                }
+                return res.status(200).json({ message: "Deleted post" });
+              }
+            );
+          });
+        } else {
           connection.query(
             "DELETE FROM post WHERE id= ?",
             [postId],
@@ -119,19 +127,11 @@ exports.deletePost = (req, res) => {
               return res.status(200).json({ message: "Deleted post" });
             }
           );
-        });
+        }
       } else {
-        connection.query(
-          "DELETE FROM post WHERE id= ?",
-          [postId],
-          function (err, result) {
-            if (err || !result.affectedRows) {
-              return res.status(400).json({ err: "Post not found" });
-            }
-            return res.status(200).json({ message: "Deleted post" });
-          }
-        );
+        return res.status(401).json({ message: "Unauthorized Request !" });
       }
+
     }
   );
 };

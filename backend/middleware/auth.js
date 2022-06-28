@@ -5,7 +5,8 @@ module.exports = (req, res, next) => {
         const token = req.headers.authorization.split(' ')[1]; //récupération du token
         const decodedToken = jwt.verify(token, process.env.TOKEN_KEY); //décodage de celui ci avec la clé secrète
         const userId = decodedToken.userId; //récupération du userId encodé dans le token
-        req.auth = { userId }; //ajout d'une propriété "auth" avec une paire clé/valeur userId
+        const admin = decodedToken.isAdmin;
+        req.auth = { userId, admin }; //ajout d'une propriété "auth" avec une paire clé/valeur userId
         if (req.body.userId && req.body.userId !== userId) {
             throw 'User ID non valable !';
         } else {

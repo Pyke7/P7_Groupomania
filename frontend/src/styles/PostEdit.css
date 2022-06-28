@@ -10,7 +10,12 @@
     width: 470px;
 }
 
+@media screen and (max-width: 650px) {
+    .postedit {
+        width: 180px;
+    }
+}
+
 .popup-post-content {
     padding: 0; 
-    width: 35%;
 }

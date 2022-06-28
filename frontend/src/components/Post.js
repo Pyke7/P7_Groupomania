@@ -163,7 +163,7 @@ function Post({ post }) {
           </div>
         )}
       </form>
-      {isUpdated === false ? <div><FaThumbsUp className="pouceBleu" /></div> : null}
+      {isUpdated === false ? <div><FaThumbsUp className="pouce" /></div> : null}
     </div>
   );
 }
