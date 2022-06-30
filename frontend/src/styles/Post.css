@@ -124,7 +124,7 @@
     transform: scale(1.10);
 }
 
-.pouce {
+.thumb {
     font-size: 20px;
     padding-left: 20px;
     cursor: pointer;
@@ -132,7 +132,12 @@
     transition: all 200ms ease-in;
 }
 
-.pouce:active {
+.active-thumb {
     transform: scale(1.2);
     color: #8AA29E;
+}
+
+.nb-likes {
+    margin-left: 10px;
+    font-family: 'Open Sans', sans-serif;
 }

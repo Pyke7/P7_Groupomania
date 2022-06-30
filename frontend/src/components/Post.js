@@ -8,16 +8,17 @@ import { BsFileImageFill } from "react-icons/bs";
 import { useForm } from "react-hook-form";
 
 function Post({ post }) {
-  console.log(post.message);
   const date = new Date(post.timestamps);
   const newDate = date.toDateString();
 
   const [userId, setUserId] = useState();
   const [isAdmin, setIsAdmin] = useState();
 
-  const [isUpdated, setIsUpdated] = useState(false);
+  const [isUpdated, setIsUpdated] = useState(false); 
 
-  const { register, handleSubmit, errors } = useForm();
+  const [likes, setLikes] = useState(post.likes);
+
+  const { register, handleSubmit, errors } = useForm(); //modification de post
   const onSubmit = (data) => {
     console.log(data.message);
     if (data.message === "" && !data.file[0]) {
@@ -32,10 +33,12 @@ function Post({ post }) {
       const dataForAxios = { message };
 
       axios
-        .put(`http://localhost:3000/api/post/${post.id}`, dataForAxios)
+        .put(`http://localhost:3000/api/post/${post.id}`, dataForAxios) //sans fichier image
         .then((res) => {
           console.log("requete réussie");
-          document.location.href = "/";
+          // document.location.href = "/";
+
+        
         })
         .catch((err) => {
           console.log(err);
@@ -48,10 +51,11 @@ function Post({ post }) {
       bodyFormData.append("image", data.file[0]);
 
       axios
-        .put(`http://localhost:3000/api/post/${post.id}`, bodyFormData)
+        .put(`http://localhost:3000/api/post/${post.id}`, bodyFormData) //avec fichier image
         .then((res) => {
           console.log("requete réussie");
-          document.location.href = "/";
+          document.location.href = "/"
+          
         })
         .catch((err) => {
           console.log(err);
@@ -59,7 +63,7 @@ function Post({ post }) {
     }
   };
 
-  function getUser() {
+  function getUser() { //affichage des options de modifications et suppression en fonction du grade utilisateur
     axios
       .get("http://localhost:3000/api/user")
       .then((res) => {
@@ -73,18 +77,29 @@ function Post({ post }) {
 
   getUser();
 
-  function deletePost() {
+  function deletePost() { //suppression du post
     const deleteOption = document.getElementsByClassName("delete");
     const postId = deleteOption[0].getAttribute("id");
     axios
       .delete(`http://localhost:3000/api/post/${postId}`)
       .then((res) => {
         console.log(res.data.message);
-        document.location.href = "/";
+        // document.location.href = "/";
       })
       .catch((error) => {
         console.log(error);
       });
+  }
+ 
+  const likePost = () => { //liker un post
+
+    axios.post(`http://localhost:3000/api/post/${post.id}/like`)
+      .then(res => {
+        setLikes(res.data.likes);
+      })
+      .catch(err => {
+        console.log(err);
+      })
   }
 
   return (
@@ -163,7 +178,7 @@ function Post({ post }) {
           </div>
         )}
       </form>
-      {isUpdated === false ? <div><FaThumbsUp className="pouce" /></div> : null}
+      {isUpdated === false ? <div><FaThumbsUp id="thumb" className="thumb" onClick={likePost}/><span className="nb-likes">{likes}</span></div> : null}
     </div>
   );
 }
