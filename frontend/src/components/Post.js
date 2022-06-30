@@ -36,9 +36,7 @@ function Post({ post }) {
         .put(`http://localhost:3000/api/post/${post.id}`, dataForAxios) //sans fichier image
         .then((res) => {
           console.log("requete réussie");
-          // document.location.href = "/";
-
-        
+          document.location.href = "/";        
         })
         .catch((err) => {
           console.log(err);
@@ -84,7 +82,7 @@ function Post({ post }) {
       .delete(`http://localhost:3000/api/post/${postId}`)
       .then((res) => {
         console.log(res.data.message);
-        // document.location.href = "/";
+        document.location.href = "/";
       })
       .catch((error) => {
         console.log(error);
