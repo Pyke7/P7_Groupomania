@@ -9,16 +9,6 @@
     width: 590px;
 }
 
-@media screen and (max-width:650px) {
-    .post {
-        width: 300px;
-    }
-
-    .post img {
-        height: 250px;
-        width: 250px;
-    }
-}
 
 .post-infos {
     padding-left: 20px;
@@ -140,4 +130,14 @@
 .nb-likes {
     margin-left: 10px;
     font-family: 'Open Sans', sans-serif;
+}
+
+@media screen and (max-width:650px) {
+    .post {
+        width: 300px;
+    }
+
+    .post img {
+        height: 250px;
+    }
 }

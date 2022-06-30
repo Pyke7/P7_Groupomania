@@ -18,7 +18,7 @@ function Post({ post }) {
 
   const [likes, setLikes] = useState(post.likes);
 
-  const { register, handleSubmit, errors } = useForm(); //modification de post
+  const { register, handleSubmit } = useForm(); //modification de post
   const onSubmit = (data) => {
     console.log(data.message);
     if (data.message === "" && !data.file[0]) {

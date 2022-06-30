@@ -14,3 +14,9 @@
     height: 100px;
     object-fit: cover;
 }
+
+@media screen and (max-width:650px) {
+    .footer-container img {
+        width: 140px;
+    }
+}

@@ -16,8 +16,20 @@
 }
 
 .header-container svg {
-    margin-right: 70px;
     color: #8AA29E;
     width: 30px;
     height: 30px;
+}
+
+@media screen and (max-width:650px) {
+    .header-container img {
+        width: 140px;
+        margin-left: 25px;
+    }
+
+    .header-container svg {
+        width: 20px;
+        height: 20px;
+        margin-right: 50px;
+    }
 }

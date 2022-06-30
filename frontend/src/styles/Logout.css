@@ -38,3 +38,17 @@
     color: #FD2D01;
     border-bottom: solid 2px #FD2D01;
 }
+
+@media screen and (max-width: 650px) {
+    .iconContainer {
+        margin-right: 40px;
+    }
+
+    .email {
+        font-size: 14px;
+    }
+
+    .btn-logout {
+        font-size: 14px;
+    }
+}
