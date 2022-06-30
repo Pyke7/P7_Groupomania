@@ -4,7 +4,7 @@ import '../styles/Footer.css';
 function Footer() {
     return(
         <div className='footer-container'>
-            <img src={logo}/>
+            <img src={logo} alt='logo groupomania'/>
         </div>
     )
 }

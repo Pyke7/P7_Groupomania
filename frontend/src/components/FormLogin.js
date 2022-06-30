@@ -24,12 +24,12 @@ function FormLogin() {
         <form onSubmit={handleSubmit(onSubmit)} className='formAuth'>
             <div className='inputLogo-Container'>
                 <FaEnvelope />
-                <input { ...register("email", {required: true})} type="email" name="email" placeholder="email" />
+                <input { ...register("email", {required: true})} type="email" name="email" placeholder="email" aria-label='email'/>
             </div>
             {errors.email && <span className='errorsForm'>email incorrect</span>}
             <div className='inputLogo-Container'>
                 <FaLock className='lock'/>
-                <input {...register("password", {required: true})} type="password" name="password" placeholder="password"></input> 
+                <input {...register("password", {required: true})} type="password" name="password" placeholder="password" aria-label='password'></input> 
             </div>
             {errors.password && <span className='errorsForm'>password incorrect</span>}
             <input type="submit" value="SIGN IN" className='btnAuth'/>

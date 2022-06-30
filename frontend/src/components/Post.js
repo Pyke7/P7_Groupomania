@@ -150,6 +150,7 @@ function Post({ post }) {
             className="contentOfPost"
             maxLength="500"
             defaultValue={post.message}
+            aria-label='text place'
           ></textarea>
         )}
 
